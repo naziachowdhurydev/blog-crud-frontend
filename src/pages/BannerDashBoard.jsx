@@ -6,6 +6,7 @@ const BannerDashBoard = () => {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [description, setDescription] = useState("");
+  const [bannerImage, setBannerImage] = useState("");
   const [dataBanner, setDataBanner] = useState([]);
   const [check, setCheck] = useState(false);
   const [show, setShow] = useState(false);
@@ -17,7 +18,9 @@ const BannerDashBoard = () => {
         title: title,
         subtitle: subtitle,
         description: description,
+        // image: bannerImage,
       });
+      console.log("first");
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +31,7 @@ const BannerDashBoard = () => {
       try {
         const dataList = await axios.get(`http://localhost:3000/banner-get`);
         setDataBanner(dataList.data);
-        console.log(dataList.data);
+        console.log(dataList.data[0].image.data);
       } catch (error) {
         console.log(error);
       }
@@ -117,17 +120,23 @@ const BannerDashBoard = () => {
       </div>
       <div className=" max-w-[1000px] mx-auto ">
         <div className="mb-3 flex justify-between border-[1px] border-solid p-2.5">
+          <h2 className="text-xl font-bold text-gray-700">Image</h2>
           <h2 className="text-xl font-bold text-gray-700">Title</h2>
           <h2 className="text-xl font-bold text-gray-700">Subtitle</h2>
           <h2 className="text-xl font-bold text-gray-700">Description</h2>
         </div>
 
-        <div>
+        {/* <div>
           {dataBanner.map((items, index) => (
             <div key={index}>
+              {console.log(items.image.data)}
               <div className="flex justify-between border-[1px] border-solid p-2.5">
                 <div>
-                  <img src="" alt="" />
+                  <img
+                    className="w-[100px] h-[100px] object-cover"
+                    src={itemData.image.data.toString("base64")}
+                    alt="no image"
+                  />
                 </div>
                 <h1 className="text-xl font-sm text-gray-700">{items.title}</h1>
                 <p className="text-xl font-sm text-gray-700">
@@ -149,13 +158,16 @@ const BannerDashBoard = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
 
       {show ? (
         <div className="border-[1px] p-8 bg-gray-500 w-[600px] ">
           <div className="w-[500px] space-y-3">
-            <FileInput id="file-upload" />
+            <FileInput
+              onChange={(e) => setBannerImage(e.target.files[0])}
+              id="file-upload"
+            />
 
             <TextInput
               onChange={(e) => setTitle(e.target.value)}
