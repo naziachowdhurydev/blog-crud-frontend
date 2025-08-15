@@ -13,12 +13,18 @@ const BannerDashBoard = () => {
   const [itemData, setItemData] = useState();
 
   const handleSubmit = async () => {
+    const formData = new FormData();
+
+    formData.append[("title", title)];
+    formData.append[("subtitle", subtitle)];
+    formData.append[("description", description)];
+
     try {
       await axios.post("http://localhost:3000/banner-post", {
         title: title,
         subtitle: subtitle,
         description: description,
-        // image: bannerImage,
+        image: bannerImage,
       });
       console.log("first");
     } catch (error) {
@@ -85,7 +91,10 @@ const BannerDashBoard = () => {
       <div className="border-2 m-10 rounded-lg p-6">
         BannerDashBoard
         <div className="w-[500px] space-y-3">
-          <FileInput id="file-upload" />
+          <FileInput
+            onChange={(e) => setBannerImage(e.target.value)}
+            id="file-upload"
+          />
 
           <TextInput
             onChange={(e) => setTitle(e.target.value)}
@@ -126,13 +135,14 @@ const BannerDashBoard = () => {
           <h2 className="text-xl font-bold text-gray-700">Description</h2>
         </div>
 
-        {/* <div>
+        <div>
           {dataBanner.map((items, index) => (
             <div key={index}>
               {console.log(items.image.data)}
               <div className="flex justify-between border-[1px] border-solid p-2.5">
                 <div>
                   <img
+                    onChange={(e) => setBannerImage(e.target.files[0])}
                     className="w-[100px] h-[100px] object-cover"
                     src={itemData.image.data.toString("base64")}
                     alt="no image"
@@ -158,8 +168,10 @@ const BannerDashBoard = () => {
               </div>
             </div>
           ))}
-        </div> */}
+        </div>
       </div>
+
+      {/* delete section */}
 
       {show ? (
         <div className="border-[1px] p-8 bg-gray-500 w-[600px] ">
