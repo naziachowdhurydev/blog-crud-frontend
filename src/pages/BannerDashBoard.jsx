@@ -14,18 +14,14 @@ const BannerDashBoard = () => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
-
-    formData.append[("title", title)];
-    formData.append[("subtitle", subtitle)];
-    formData.append[("description", description)];
+    formData.append("title", title);
+    formData.append("subtitle", subtitle);
+    formData.append("description", description);
+    formData.append("image", bannerImage);
 
     try {
-      await axios.post("http://localhost:3000/banner-post", {
-        title: title,
-        subtitle: subtitle,
-        description: description,
-        image: bannerImage,
-      });
+      await axios.post("http://localhost:3000/banner-post", formData);
+      setCheck(!check);
       console.log("first");
     } catch (error) {
       console.log(error);
@@ -37,13 +33,13 @@ const BannerDashBoard = () => {
       try {
         const dataList = await axios.get(`http://localhost:3000/banner-get`);
         setDataBanner(dataList.data);
-        console.log(dataList.data[0].image.data);
+        // console.log(dataList.data[0].image.data);
       } catch (error) {
         console.log(error);
       }
     }
     getData();
-  }, [!check]);
+  }, [check]);
 
   const handleEdit = (items) => {
     setItemData(items._id);
@@ -68,12 +64,16 @@ const BannerDashBoard = () => {
   };
 
   const handleDelete = async (items) => {
+    console.log(items);
+
     const userConfirmed = window.confirm("Do you want to delete?");
-    console.log("deleted", items._id);
+    console.log("deleted", items.id);
     if (userConfirmed) {
       try {
         await axios
-          .delete(`http://localhost:3000/banner-delete/${items._id}`)
+          .delete(`http://localhost:3000/banner-delete/${items.id}`, {
+            data: { imageName: items.imageName },
+          })
           .then(() => {
             setCheck(!check);
           });
@@ -92,7 +92,7 @@ const BannerDashBoard = () => {
         BannerDashBoard
         <div className="w-[500px] space-y-3">
           <FileInput
-            onChange={(e) => setBannerImage(e.target.value)}
+            onChange={(e) => setBannerImage(e.target.files[0])}
             id="file-upload"
           />
 
@@ -138,13 +138,12 @@ const BannerDashBoard = () => {
         <div>
           {dataBanner.map((items, index) => (
             <div key={index}>
-              {console.log(items.image.data)}
               <div className="flex justify-between border-[1px] border-solid p-2.5">
                 <div>
                   <img
                     onChange={(e) => setBannerImage(e.target.files[0])}
                     className="w-[100px] h-[100px] object-cover"
-                    src={itemData.image.data.toString("base64")}
+                    src={items.image.data.toString("base64")}
                     alt="no image"
                   />
                 </div>
