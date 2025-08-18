@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import axios from "axios";
 
 const slides = [
   {
@@ -31,20 +30,6 @@ const slides = [
 
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [slides, setBannerSlides] = useState([]);
-
-  useEffect(() => {
-    async function getData() {
-      try {
-        const dataList = await axios.get(`http://localhost:3000/get`);
-        setBannerSlides(dataList.data);
-        console.log(dataList.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getData();
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
