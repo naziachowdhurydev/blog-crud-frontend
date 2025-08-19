@@ -88,92 +88,11 @@ const BannerDashBoard = () => {
 
   return (
     <>
-      <div className="border-2 m-10 rounded-lg p-6">
-        BannerDashBoard
-        <div className="w-[500px] space-y-3">
-          <FileInput
-            onChange={(e) => setBannerImage(e.target.files[0])}
-            id="file-upload"
-          />
+      {/* banner section */}
 
-          <TextInput
-            onChange={(e) => setTitle(e.target.value)}
-            id="email1"
-            type="email"
-            placeholder="Banner Title"
-            required
-          />
-          <TextInput
-            onChange={(e) => setSubtitle(e.target.value)}
-            id="email1"
-            type="email"
-            placeholder="Banner Subtitle"
-            required
-          />
-          <TextInput
-            onChange={(e) => setDescription(e.target.value)}
-            id="email1"
-            type="email"
-            placeholder="Banner Description"
-            required
-          />
-
-          <Button
-            onClick={() => {
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
-        </div>
-      </div>
-      <div className=" max-w-[1000px] mx-auto ">
-        <div className="mb-3 flex justify-between border-[1px] border-solid p-2.5">
-          <h2 className="text-xl font-bold text-gray-700">Image</h2>
-          <h2 className="text-xl font-bold text-gray-700">Title</h2>
-          <h2 className="text-xl font-bold text-gray-700">Subtitle</h2>
-          <h2 className="text-xl font-bold text-gray-700">Description</h2>
-        </div>
-
-        <div>
-          {dataBanner.map((items, index) => (
-            <div key={index}>
-              <div className="flex justify-between border-[1px] border-solid p-2.5">
-                <div>
-                  <img
-                    onChange={(e) => setBannerImage(e.target.files[0])}
-                    className="w-[100px] h-[100px] object-cover"
-                    src={items.image.data.toString("base64")}
-                    alt="no image"
-                  />
-                </div>
-                <h1 className="text-xl font-sm text-gray-700">{items.title}</h1>
-                <p className="text-xl font-sm text-gray-700">
-                  {items.subtitle}
-                </p>
-                <a className="text-xl font-sm text-gray-700" href="">
-                  {items.description}
-                </a>
-                <h2 className="text-xl font-sm text-gray-700">
-                  <i
-                    onClick={() => handleEdit(items)}
-                    className="fa-solid fa-pen-to-square"
-                  ></i>
-                  <i
-                    onClick={() => handleDelete(items)}
-                    className="fa-solid fa-circle-xmark"
-                  ></i>
-                </h2>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* delete section */}
-
-      {show ? (
-        <div className="border-[1px] p-8 bg-gray-500 w-[600px] ">
+      <div>
+        <div className="border-2 m-10 rounded-lg p-6">
+          BannerDashBoard
           <div className="w-[500px] space-y-3">
             <FileInput
               onChange={(e) => setBannerImage(e.target.files[0])}
@@ -204,16 +123,208 @@ const BannerDashBoard = () => {
 
             <Button
               onClick={() => {
-                handleUpdate();
+                handleSubmit();
               }}
             >
               Submit
             </Button>
           </div>
         </div>
-      ) : (
-        ""
-      )}
+        <div className=" max-w-[1000px] mx-auto ">
+          <div className="mb-3 flex justify-between border-[1px] border-solid p-2.5">
+            <h2 className="text-xl font-bold text-gray-700">Image</h2>
+            <h2 className="text-xl font-bold text-gray-700">Title</h2>
+            <h2 className="text-xl font-bold text-gray-700">Subtitle</h2>
+            <h2 className="text-xl font-bold text-gray-700">Description</h2>
+          </div>
+
+          <div>
+            {dataBanner.map((items, index) => (
+              <div
+                key={index}
+                className="bg-white border-b dark:bg-gray-300 text-white"
+              >
+                <div className="flex justify-between border-[1px] border-solid p-2.5">
+                  <div>
+                    <img
+                      onChange={(e) => setBannerImage(e.target.files[0])}
+                      className="w-[100px] h-[100px] object-cover"
+                      src={items.image.data.toString("base64")}
+                      alt="no image"
+                    />
+                  </div>
+                  <h1 className="text-xl font-sm text-gray-700">
+                    {items.title}
+                  </h1>
+                  <p className="text-xl font-sm text-gray-700">
+                    {items.subtitle}
+                  </p>
+                  <a className="text-xl font-sm text-gray-700" href="">
+                    {items.description}
+                  </a>
+                  <h2 className="text-xl font-sm text-gray-700">
+                    <i
+                      onClick={() => handleEdit(items)}
+                      className="fa-solid fa-pen-to-square"
+                    ></i>
+                    <i
+                      onClick={() => handleDelete(items)}
+                      className="fa-solid fa-circle-xmark"
+                    ></i>
+                  </h2>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* delete section */}
+
+        {show ? (
+          <div className="border-[1px] p-8 bg-gray-500 w-[600px] ">
+            <div className="w-[500px] space-y-3">
+              <FileInput
+                onChange={(e) => setBannerImage(e.target.files[0])}
+                id="file-upload"
+              />
+
+              <TextInput
+                onChange={(e) => setTitle(e.target.value)}
+                id="email1"
+                type="email"
+                placeholder="Banner Title"
+                required
+              />
+              <TextInput
+                onChange={(e) => setSubtitle(e.target.value)}
+                id="email1"
+                type="email"
+                placeholder="Banner Subtitle"
+                required
+              />
+              <TextInput
+                onChange={(e) => setDescription(e.target.value)}
+                id="email1"
+                type="email"
+                placeholder="Banner Description"
+                required
+              />
+
+              <Button
+                onClick={() => {
+                  handleUpdate();
+                }}
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+
+      {/* card section  */}
+
+      <div className="max-w-[1200px] mx-auto mt-[200px]">
+        <h2 className="text-[20px] font-bold text-center">card Section</h2>
+        <div className="border-2 m-10 rounded-lg p-6 ">
+          <h4 className="text-[20px] mb-5"> Card Section</h4>
+          <div className="w-[500px] space-y-3">
+            <FileInput id="file-upload" />
+
+            <TextInput
+              id="image-title"
+              type="email"
+              placeholder="Image Title"
+              required
+            />
+            <TextInput id="info" type="email" placeholder="Info" required />
+
+            <TextInput
+              id="package"
+              type="email"
+              placeholder="Package"
+              required
+            />
+
+            <TextInput
+              id="location"
+              type="email"
+              placeholder="Location"
+              required
+            />
+
+            <TextInput id="price" type="email" placeholder="Price" required />
+
+            <button>
+              <a href=""></a>
+            </button>
+
+            <Button>Submit</Button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="relative overflow-x-auto">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-400 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Image
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Image Title
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Info
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Package
+                </th>
+
+                <th scope="col" class="px-6 py-3">
+                  Location
+                </th>
+
+                <th scope="col" class="px-6 py-3">
+                  Price
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  update/Delete
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                {/* <th
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  image
+                </th> */}
+                <td class="px-6 py-4">image</td>
+                <td class="px-6 py-4">title</td>
+                <td class="px-6 py-4">info</td>
+                <td class="px-6 py-4">package</td>
+                <td class="px-6 py-4">location</td>
+                <td class="px-6 py-4">price</td>
+                <h2 className="text-xl ml-11 px-6 py-4 font-sm text-gray-400">
+                  <i
+                    onClick={() => handleEdit(items)}
+                    className="fa-solid fa-pen-to-square"
+                  ></i>
+                  <i
+                    onClick={() => handleDelete(items)}
+                    className="fa-solid fa-circle-xmark"
+                  ></i>
+                </h2>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 };
